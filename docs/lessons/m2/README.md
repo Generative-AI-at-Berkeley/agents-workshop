@@ -1,3 +1,8 @@
+---
+layout: default
+title: "M2: Directed Graph"
+---
+
 # Module 2 — Directed Graph + Conditional Edges
 
 

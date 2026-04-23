@@ -1,3 +1,8 @@
+---
+layout: default
+title: "M1: Single Agent"
+---
+
 # Module 1 — Single Agent + Observability
 
 

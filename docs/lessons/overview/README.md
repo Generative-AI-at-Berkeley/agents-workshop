@@ -1,3 +1,8 @@
+---
+layout: default
+title: Workshop Overview
+---
+
 # Workshop Overview — Building Production AI Agents
 
 

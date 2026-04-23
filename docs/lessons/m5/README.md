@@ -1,3 +1,8 @@
+---
+layout: default
+title: "M5: Parallel Fan-Out"
+---
+
 # Module 5 — Parallel Fan-Out + Merge
 
 

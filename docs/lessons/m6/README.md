@@ -1,3 +1,8 @@
+---
+layout: default
+title: "M6: Search Orchestra"
+---
+
 # Module 6 — Multi-Agent Search Orchestra
 
 

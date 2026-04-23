@@ -1,3 +1,8 @@
+---
+layout: default
+title: "M3: Tools + RBAC"
+---
+
 # Module 3 — Tools + RBAC
 
 

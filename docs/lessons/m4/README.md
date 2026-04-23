@@ -1,3 +1,8 @@
+---
+layout: default
+title: "M4: Subagents"
+---
+
 # Module 4 — Subagents
 
 
