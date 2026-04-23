@@ -71,3 +71,23 @@ def test_should_stop_max_rounds():
 def test_should_stop_continues():
 	state = {"done": False, "tool_rounds": 1}
 	assert should_stop(state) == "continue"
+
+
+def test_m6_graph_compiles():
+    from graph.m6.workflow import build_graph
+    g = build_graph()
+    node_names = set(g.nodes.keys()) - {"__start__"}
+    assert "orchestrator" in node_names
+    assert "search_planner" in node_names
+    assert "search_executor" in node_names
+    assert "validator" in node_names
+    assert "synthesizer" in node_names
+    assert "tool_executor" in node_names
+
+
+def test_m6_async_graph_compiles():
+    from graph.m6.workflow import build_async_graph
+    g = build_async_graph()
+    node_names = set(g.nodes.keys()) - {"__start__"}
+    assert "orchestrator" in node_names
+    assert "search_planner" in node_names
