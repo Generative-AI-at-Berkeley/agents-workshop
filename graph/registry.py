@@ -6,6 +6,7 @@ MODULES = {
 	3: "graph.m3.workflow",
 	4: "graph.m4.workflow",
 	5: "graph.m5.workflow",
+	6: "graph.m6.workflow",
 }
 
 DEFAULT_MODULE = 5

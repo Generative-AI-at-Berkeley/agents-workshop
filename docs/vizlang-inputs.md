@@ -144,4 +144,38 @@ curl -s -X POST http://localhost:8200/runs \
 
 # Check a run result
 curl -s http://localhost:8200/runs/<run_id> | python3 -m json.tool
+
+# ─── Module 6: Chat API ───
+
+# Create a chat session
+curl -s -X POST http://localhost:8200/chat | python3 -m json.tool
+
+# Send a message (replace <session_id>)
+curl -s -X POST http://localhost:8200/chat/<session_id>/messages \
+  -H "Content-Type: application/json" \
+  -d '{"message": "Find me rave tickets in San Francisco this weekend. Techno, warehouse vibes."}'
+
+# Follow up (same session — agent remembers context)
+curl -s -X POST http://localhost:8200/chat/<session_id>/messages \
+  -H "Content-Type: application/json" \
+  -d '{"message": "What about afterhours? Anything open past 4am?"}'
+
+# Get full chat history
+curl -s http://localhost:8200/chat/<session_id> | python3 -m json.tool
 ```
+
+---
+
+## Module 6 — Deep Agent Chat (VizLang)
+
+```json
+{
+  "messages": [],
+  "tool_rounds": 0,
+  "done": false
+}
+```
+
+> **Note:** M6 is a conversational agent. In VizLang, you can only run a single turn.
+> For the full multi-turn experience, use the Chat API or CLI:
+> `uv run python run.py --module=6 "find me rave tickets in sf this weekend"`
