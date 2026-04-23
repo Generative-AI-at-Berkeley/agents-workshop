@@ -31,6 +31,21 @@ graph TD
 
 Five nodes in a pipeline, triggered by an orchestrator. The orchestrator decides IF to search; the pipeline handles HOW.
 
+## What Changed from M5
+
+M1-M5 are **one-shot itinerary planners** — request in, structured JSON out. M6 is a completely different kind of agent: a **multi-turn chat agent** backed by a real-time search pipeline.
+
+| | M5 | M6 |
+|---|---|---|
+| **Input** | `NightOutRequest` (city, vibe, date) | Free-text chat message |
+| **Output** | `Itinerary` (structured JSON) | Natural language response |
+| **Interaction** | One-shot (request → result) | Multi-turn (ongoing conversation) |
+| **Data source** | LLM knowledge + Firecrawl | Live event search + validation |
+| **Graph shape** | Fixed pipeline (plan → scouts → merge → synth → review) | Conditional pipeline (orchestrator decides what to trigger) |
+| **API** | `POST /runs` | `POST /chat` → `POST /chat/{id}/messages` |
+
+We started with a naive single-agent ReAct loop for M6 (one LLM with 4 tools, looping until done). It hallucinated fake events instead of searching. The Search Orchestra below is the fix.
+
 ## The Evolution: Single Agent → Pipeline
 
 This is the teaching point of M6.

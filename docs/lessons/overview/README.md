@@ -10,9 +10,9 @@ title: Workshop Overview
 
 A **Night Out Agent** — give it a city, vibe, date, and group size, and it plans your entire night: pregame, main event, recovery meal, and everything in between.
 
-We'll build it five times, each time adding a production pattern that real agent systems use. By the end, you'll have a multi-agent system with tool use, parallel execution, and full observability.
+We'll build it six times, each time adding a production pattern that real agent systems use. By the end, you'll have a multi-agent search pipeline with tool use, parallel execution, validation, and full observability.
 
-## The Five Modules
+## The Modules
 
 ```mermaid
 graph LR
@@ -20,12 +20,14 @@ graph LR
     M2 --> M3["M3: Tools + RBAC"]
     M3 --> M4["M4: Subagents"]
     M4 --> M5["M5: Parallel Fan-Out"]
+    M5 --> M6["M6: Search Orchestra"]
 
     style M1 fill:#e8f5e9
     style M2 fill:#e3f2fd
     style M3 fill:#fff3e0
     style M4 fill:#fce4ec
     style M5 fill:#f3e5f5
+    style M6 fill:#e8eaf6
 ```
 
 | Module | Pattern | Key Concept |
@@ -35,6 +37,9 @@ graph LR
 | **M3** | Tool use + RBAC | "Without RBAC, every agent can do everything." |
 | **M4** | Manager + subagents | "The manager doesn't work — it delegates." |
 | **M5** | Parallel fan-out + merge | "Fan-out is easy. Merge is the product." |
+| **M6** | Multi-agent search pipeline | "When a single agent hallucinates, redesign the architecture." |
+
+M1-M5 are **one-shot**: request in, itinerary out. M6 is **conversational**: a multi-turn chat agent backed by a search pipeline.
 
 ## Tech Stack
 
@@ -55,7 +60,7 @@ agents-workshop/
   graph/
     common.py      # Shared: call_agent(), tool loop, helpers
     registry.py    # Module dispatcher
-    m1/ ... m5/    # Each module: state, nodes, conditions, workflow
+    m1/ ... m6/    # Each module: state, nodes, conditions, workflow
   tools/           # Firecrawl wrappers (search, scrape)
   config/
     models.yaml    # Agent -> model mapping

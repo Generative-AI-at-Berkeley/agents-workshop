@@ -163,6 +163,14 @@ You can see exactly which scout was called, what it was asked, and what it retur
 
 With 5 scouts running sequentially, the manage_scouts node takes ~10 seconds (5 scouts x ~2 seconds each). The scouts don't depend on each other — they could run in parallel. That's Module 5.
 
+## Try It
+
+```bash
+uv run python run.py --module 4 "berlin" "techno, underground" "this saturday" 4
+```
+
+Check Langfuse — look for the parent-child hierarchy under `manage_scouts`.
+
 ## Teaching Script
 
 > "In M3, one scout did everything. Now we have a manager that delegates to specialized scouts. The manager outputs JSON — 'send club_scout to research Berghain, send food_scout to find döner.' Each scout has its own prompt tuned for its domain."

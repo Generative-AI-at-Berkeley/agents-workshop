@@ -192,6 +192,14 @@ graph LR
     M1 -.-> M2 -.-> M3 -.-> M4 -.-> M5
 ```
 
+## Try It
+
+```bash
+uv run python run.py --module 5 "san francisco" "house music, rooftop" "this saturday" 6
+```
+
+Check Langfuse — compare the scout span timestamps to M4. They should overlap instead of being stacked.
+
 ## Teaching Script
 
 > "One change turns 10 seconds into 2: `asyncio.gather`. The scouts don't depend on each other, so we fire them all at once. Same work, same results, fraction of the time."

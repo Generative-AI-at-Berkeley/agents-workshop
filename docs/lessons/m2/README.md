@@ -143,6 +143,14 @@ class Stop(BaseModel):
 
 LLMs return `6.5` instead of `7`, or `"$20"` where you expect a string. Pydantic validators handle this at the boundary so downstream code never sees it.
 
+## Try It
+
+```bash
+uv run python run.py --module 2 "berlin" "techno, underground" "this saturday" 4
+```
+
+Check Langfuse — you'll see 4 generation spans and the retry loop (if the reviewer rejects).
+
 ## Teaching Script
 
 > "M1 was one call. Now we have four agents in a directed graph. Look at the graph — you can read it like a product spec. Plan, research, assemble, review. If the review fails, loop back with feedback. This is how 90% of production agents work. Not some magical autonomous loop — a deliberate graph where every edge is a product decision."

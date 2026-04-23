@@ -162,6 +162,14 @@ Open Langfuse for an M3 run. You'll see:
 
 Compare to M2: the scout was a single generation span. Now it's a multi-round conversation with tool calls nested inside.
 
+## Try It
+
+```bash
+uv run python run.py --module 3 "san francisco" "house music, rooftop" "this saturday" 4
+```
+
+Check Langfuse — look for the tool spans nested inside the scout's generation.
+
 ## Teaching Script
 
 > "Same graph as M2. Same state. The only change: the scout can now search the web. But look at how it's wired — tools are declared in YAML, not hardcoded. The scout gets search and scrape. The planner gets nothing. Remove a line from the YAML, the tool is gone. No code change."

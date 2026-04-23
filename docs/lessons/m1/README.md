@@ -96,6 +96,14 @@ This works, but it's brittle:
 
 Module 2 fixes all of these.
 
+## Try It
+
+```bash
+uv run python run.py --module 1 "berlin" "techno, underground" "this saturday" 4
+```
+
+Open Langfuse at `http://localhost:3200` to see the trace.
+
 ## Teaching Script
 
 > "This is the simplest possible agent — one LLM call. But notice we already have observability. Open Langfuse, you can see exactly what went in and what came out. That's the foundation everything else builds on. Now look at the output... the venues are probably made up. The LLM is hallucinating from training data. That's fine for M1, but in M2 we'll split this into specialized agents with a quality gate."
