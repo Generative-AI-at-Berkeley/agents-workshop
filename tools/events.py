@@ -123,6 +123,47 @@ class TicketLookup(BaseTool):
 		}
 
 
+class SearchEvents(BaseTool):
+	name = "search_events"
+	description = (
+		"Trigger a deep multi-source search for events, concerts, raves, and festivals. "
+		"This searches across RA, Eventbrite, Dice, Insomniac, and more, validates results, "
+		"and returns verified events. Use this whenever the user asks about finding events."
+	)
+
+	async def run(self, *, query: str, city: str, date: str = "", **_kwargs: Any) -> ToolResult:
+		return ToolResult(tool_name=self.name, success=True, data={"query": query, "city": city, "date": date})
+
+	def _parameters(self) -> dict:
+		return {
+			"type": "object",
+			"properties": {
+				"query": {"type": "string", "description": "What to search for, e.g. 'melodic EDM raves', 'techno afterhours'"},
+				"city": {"type": "string", "description": "City or area, e.g. 'San Francisco', 'Bay Area', 'Los Angeles'"},
+				"date": {"type": "string", "description": "Date range, e.g. 'this weekend', 'May 2026', 'next month'"},
+			},
+			"required": ["query", "city"],
+		}
+
+
+class LookupEvent(BaseTool):
+	name = "lookup_event"
+	description = (
+		"Scrape a specific event page URL for ticket details, lineup, pricing, and venue info. "
+		"Use when the user provides a specific URL or asks for details on a specific event."
+	)
+
+	async def run(self, *, url: str, **_kwargs: Any) -> ToolResult:
+		return await TicketLookup().run(url=url)
+
+	def _parameters(self) -> dict:
+		return {
+			"type": "object",
+			"properties": {"url": {"type": "string", "description": "Event page URL to look up"}},
+			"required": ["url"],
+		}
+
+
 def _detect_source(url: str) -> str:
 	url_lower = url.lower()
 	for source in ["ra.co", "dice.fm", "eventbrite", "shotgun", "tixr", "seetickets", "ticketmaster"]:

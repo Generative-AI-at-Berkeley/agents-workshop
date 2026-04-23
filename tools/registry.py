@@ -4,9 +4,17 @@ import yaml
 
 from graph.common import CONFIG_DIR
 from tools.base import BaseTool
+from tools.events import EventSearch, LookupEvent, SearchEvents, TicketLookup
 from tools.firecrawl import FirecrawlSearch, FirecrawlScrape
 
-_ALL_TOOLS: dict[str, type[BaseTool]] = {"firecrawl_search": FirecrawlSearch, "firecrawl_scrape": FirecrawlScrape}
+_ALL_TOOLS: dict[str, type[BaseTool]] = {
+	"firecrawl_search": FirecrawlSearch,
+	"firecrawl_scrape": FirecrawlScrape,
+	"event_search": EventSearch,
+	"ticket_lookup": TicketLookup,
+	"search_events": SearchEvents,
+	"lookup_event": LookupEvent,
+}
 
 
 def _load_tools_config() -> dict:

@@ -22,3 +22,8 @@ agents:
     - firecrawl_search
     - firecrawl_scrape
   merge: []
+  deep_orchestrator:
+    - search_events
+    - lookup_event
+  search_planner: []
+  search_synthesizer: []
