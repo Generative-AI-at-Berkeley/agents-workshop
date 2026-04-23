@@ -73,6 +73,21 @@ def test_should_stop_continues():
 	assert should_stop(state) == "continue"
 
 
+def test_think_tags_stripped():
+    from graph.m6.nodes import _THINK_RE
+    text = "<think>\nI need to analyze these results...\n</think>\n\nHere are the best events!"
+    result = _THINK_RE.sub("", text).strip()
+    assert "<think>" not in result
+    assert result == "Here are the best events!"
+
+
+def test_think_tags_no_match():
+    from graph.m6.nodes import _THINK_RE
+    text = "No thinking tags here, just results."
+    result = _THINK_RE.sub("", text).strip()
+    assert result == text
+
+
 def test_m6_graph_compiles():
     from graph.m6.workflow import build_graph
     g = build_graph()

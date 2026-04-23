@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import asyncio
 import json
+import re
 
 import structlog
 from langchain_core.messages import AIMessage, HumanMessage, SystemMessage, ToolMessage
@@ -22,6 +23,7 @@ from tools.firecrawl import FirecrawlSearch
 log = structlog.get_logger(__name__)
 
 _FIRECRAWL_SEMAPHORE = asyncio.Semaphore(3)
+_THINK_RE = re.compile(r"<think>.*?</think>\s*", re.DOTALL)
 
 
 def _trim_history(messages: list) -> list:
@@ -241,10 +243,17 @@ async def synthesizer(state: M6State) -> dict:
 	raw = state.get("raw_results", [])
 	current_query = state.get("current_query", "")
 
+	def _slim(event: dict) -> dict:
+		slim = {k: v for k, v in event.items() if k != "details"}
+		details = event.get("details", "")
+		if details:
+			slim["details"] = details[:500] + ("..." if len(details) > 500 else "")
+		return slim
+
 	if validated:
-		events_json = json.dumps(validated, indent=2, default=str)
+		events_json = json.dumps([_slim(e) for e in validated[:6]], indent=2, default=str)
 	elif raw:
-		events_json = json.dumps(raw[:10], indent=2, default=str)
+		events_json = json.dumps(raw[:8], indent=2, default=str)
 		events_json += "\n\nNOTE: These results could not be validated via scraping. Present them with caveats."
 	else:
 		events_json = "[]"
@@ -254,6 +263,8 @@ async def synthesizer(state: M6State) -> dict:
 	with generation_context(name="agent.search_synthesizer", model=model_cfg["model"], input=user_msg[:500]) as gen:
 		response = await llm.ainvoke([SystemMessage(content=prompt), HumanMessage(content=user_msg)])
 		gen.update(output=response.content)
+
+	content = _THINK_RE.sub("", response.content).strip()
 
 	pending_tool_calls = []
 	for msg in reversed(state["messages"]):
@@ -266,9 +277,9 @@ async def synthesizer(state: M6State) -> dict:
 		summary = f"Searched {len(raw)} sources, validated {len(validated)} events"
 		new_messages.append(ToolMessage(content=summary, tool_call_id=tc["id"]))
 
-	new_messages.append(AIMessage(content=response.content))
+	new_messages.append(AIMessage(content=content))
 
-	log.info("synthesizer_done", validated=len(validated), raw=len(raw), response_len=len(response.content))
+	log.info("synthesizer_done", validated=len(validated), raw=len(raw), response_len=len(content))
 	return {
 		"messages": new_messages,
 		"done": True,
