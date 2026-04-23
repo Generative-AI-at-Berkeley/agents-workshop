@@ -196,6 +196,39 @@ Each pipeline stage is a separate span. Compare to the naive ReAct agent where a
 + scrapes top 8, filters dead/fake/outdated
 ```
 
+## Try It
+
+**CLI:**
+```bash
+# Interactive chat
+uv run python run.py --module 6
+
+# One-liner
+uv run python run.py --module 6 "find me melodic EDM shows in the bay area"
+```
+
+**API:**
+```bash
+# Create a chat session
+curl -s -X POST http://localhost:8200/chat | jq
+# → {"session_id": "abc123", "created_at": "...", "messages": []}
+
+# Send a message (replace abc123 with your session_id)
+curl -s -X POST http://localhost:8200/chat/abc123/messages \
+  -H "Content-Type: application/json" \
+  -d '{"message": "find me raves in SF this weekend"}' | jq .assistant_message.content
+
+# Follow up — agent remembers context
+curl -s -X POST http://localhost:8200/chat/abc123/messages \
+  -H "Content-Type: application/json" \
+  -d '{"message": "what about afterhours?"}' | jq .assistant_message.content
+
+# View full history
+curl -s http://localhost:8200/chat/abc123 | jq .messages
+```
+
+**Requires:** `GROQ_API_KEY` and `FIRECRAWL_API_KEY` in your `.env` file.
+
 ## Teaching Script
 
 > "Remember the naive deep agent? It hallucinated fake events instead of searching. The problem isn't the model — it's the architecture. A single ReAct agent has to decide what to search, execute the search, validate results, AND format the response. That's too many jobs for one context window."

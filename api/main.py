@@ -22,6 +22,20 @@ log = structlog.get_logger(__name__)
 app = FastAPI(title="agents-workshop", version="0.1.0")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 
+
+@app.on_event("startup")
+async def _validate_keys() -> None:
+	from config.settings import get_settings
+
+	s = get_settings()
+	missing = []
+	if not s.GROQ_API_KEY:
+		missing.append("GROQ_API_KEY")
+	if not s.FIRECRAWL_API_KEY:
+		missing.append("FIRECRAWL_API_KEY")
+	if missing:
+		log.warning("missing_api_keys", keys=missing, hint="cp .env.example .env and fill in your keys")
+
 OUTPUT_DIR = Path("output")
 OUTPUT_DIR.mkdir(exist_ok=True)
 
