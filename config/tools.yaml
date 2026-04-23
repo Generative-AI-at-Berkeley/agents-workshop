@@ -1,0 +1,24 @@
+agents:
+  planner: []
+  scout:
+    - firecrawl_search
+    - firecrawl_scrape
+  synthesizer: []
+  reviewer: []
+  manager: []
+  club_scout:
+    - firecrawl_search
+    - firecrawl_scrape
+  rave_scout:
+    - firecrawl_search
+    - firecrawl_scrape
+  food_scout:
+    - firecrawl_search
+    - firecrawl_scrape
+  afterhours_scout:
+    - firecrawl_search
+    - firecrawl_scrape
+  ticket_scout:
+    - firecrawl_search
+    - firecrawl_scrape
+  merge: []

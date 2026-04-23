@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>nightout · agents workshop</title>
+    <script>
+      (function () {
+        var q = window.matchMedia("(prefers-color-scheme: dark)");
+        function apply() {
+          document.documentElement.classList.toggle("dark", q.matches);
+          document.documentElement.style.colorScheme = q.matches
+            ? "dark"
+            : "light";
+        }
+        apply();
+        q.addEventListener("change", apply);
+      })();
+    </script>
+    <link rel="preconnect" href="https://rsms.me/" />
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+  </head>
+  <body class="bg-surface text-ink antialiased">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

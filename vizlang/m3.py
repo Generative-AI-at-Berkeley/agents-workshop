@@ -1,0 +1,10 @@
+"""Module 3: Tools (Firecrawl) + RBAC — Open in VizLang to visualize."""
+
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
+from graph.m3.workflow import build_graph
+
+graph = build_graph()

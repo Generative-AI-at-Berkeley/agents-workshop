@@ -1,0 +1,15 @@
+.venv/
+venv/
+__pycache__/
+*.pyc
+.ruff_cache/
+.pytest_cache/
+.mypy_cache/
+output/
+.env
+.env.local
+*.egg-info/
+dist/
+build/
+.DS_Store
+.claude/worktrees/

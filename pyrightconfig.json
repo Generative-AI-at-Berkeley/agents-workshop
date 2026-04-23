@@ -1,0 +1,29 @@
+{
+  "include": [
+    "agents",
+    "api",
+    "config",
+    "graph",
+    "models",
+    "schemas",
+    "scripts",
+    "tools"
+  ],
+  "exclude": [
+    "venv",
+    "output",
+    "**/__pycache__"
+  ],
+  "typeCheckingMode": "standard",
+  "pythonVersion": "3.13",
+  "venvPath": ".",
+  "venv": "venv",
+  "reportMissingImports": true,
+  "reportMissingTypeStubs": false,
+  "reportUnusedImport": true,
+  "reportUnusedClass": true,
+  "reportUnusedFunction": true,
+  "reportUnusedVariable": true,
+  "reportDuplicateImport": true,
+  "pythonPlatform": "Linux"
+}

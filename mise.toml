@@ -1,0 +1,75 @@
+[tools]
+python = '3.13'
+uv = '0.8'
+
+[env]
+_.python.venv = { path = 'venv', create = true }
+UV_PROJECT_ENVIRONMENT = '{{config_root}}/venv'
+
+[tasks.install-host]
+description = 'Install dependencies on the host (useful for configuring your IDE)'
+run = 'uv sync'
+
+[tasks.dev]
+description = 'Start docker compose (Langfuse stack + workshop API)'
+run = 'docker compose up'
+
+[tasks.down]
+description = 'Stop docker compose'
+run = 'docker compose down'
+
+[tasks.restart]
+description = 'Restart workshop containers'
+run = 'docker compose restart'
+
+[tasks.logs]
+description = 'Tail docker compose logs'
+run = 'docker compose logs -f'
+
+[tasks.shell]
+description = 'Open a shell in the workshop-api container'
+run = 'docker compose exec workshop-api bash'
+
+[tasks.psql-langfuse]
+description = 'Open a postgres shell against the Langfuse database'
+run = 'docker compose exec langfuse-db psql -U langfuse -d langfuse'
+
+[tasks.langfuse-ui]
+description = 'Print the Langfuse UI URL + seeded login credentials'
+run = '''
+echo "Langfuse UI:     http://localhost:3200"
+echo "Seeded login:    admin@berkeleydegenerative.ai  /  agentsworkshoplocal"
+echo "Seeded keys:     pk-lf-workshop-local-dev / sk-lf-workshop-local-dev (already in .env.example)"
+'''
+
+[tasks.api]
+description = 'Run the FastAPI server on the host (port 8200)'
+run = 'uv run uvicorn api.main:app --reload --port 8200'
+
+[tasks.plan]
+description = 'Plan a night out. Usage: mise run plan -- "berlin" "techno, underground" "this saturday" 4'
+run = 'uv run python run.py'
+
+[tasks.lint]
+description = 'Run ruff + ty'
+run = ['uv run ruff check', 'uv run ruff format --check', 'uv run ty check']
+
+[tasks.format]
+description = 'Autofix lint + format'
+run = ['uv run ruff check --fix', 'uv run ruff format']
+
+[tasks.test]
+description = 'Run pytest'
+run = 'uv run pytest'
+
+[tasks.ui]
+description = 'Run the UI dev server on :5174'
+run = 'cd ui && npm run dev'
+
+[tasks.ui-install]
+description = 'Install UI npm deps'
+run = 'cd ui && npm install'
+
+[tasks.ui-build]
+description = 'Production build of the UI'
+run = 'cd ui && npm run build'

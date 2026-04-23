@@ -1,0 +1,42 @@
+agents:
+  # --- Module 1 ---
+  planner_v1:
+    provider: groq
+    model: meta-llama/llama-4-scout-17b-16e-instruct
+
+  # --- Module 2-3 ---
+  planner:
+    provider: groq
+    model: meta-llama/llama-4-scout-17b-16e-instruct
+  scout:
+    provider: groq
+    model: llama-3.1-8b-instant
+  synthesizer:
+    provider: groq
+    model: meta-llama/llama-4-scout-17b-16e-instruct
+  reviewer:
+    provider: groq
+    model: openai/gpt-oss-120b
+
+  # --- Module 4-5: each scout on a different model = separate rate limits ---
+  manager:
+    provider: groq
+    model: meta-llama/llama-4-scout-17b-16e-instruct
+  club_scout:
+    provider: groq
+    model: llama-3.1-8b-instant
+  rave_scout:
+    provider: groq
+    model: qwen/qwen3-32b
+  food_scout:
+    provider: groq
+    model: meta-llama/llama-4-scout-17b-16e-instruct
+  afterhours_scout:
+    provider: groq
+    model: openai/gpt-oss-20b
+  ticket_scout:
+    provider: groq
+    model: allam-2-7b
+  merge:
+    provider: groq
+    model: meta-llama/llama-4-scout-17b-16e-instruct
