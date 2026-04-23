@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from functools import lru_cache
 from pathlib import Path
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -22,5 +23,6 @@ class Settings(BaseSettings):
 	LANGFUSE_HOST: str = "http://localhost:3200"
 
 
+@lru_cache
 def get_settings() -> Settings:
 	return Settings()
