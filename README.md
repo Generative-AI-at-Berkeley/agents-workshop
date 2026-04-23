@@ -37,7 +37,9 @@ You need two free API keys:
 | Key | Get it at | Free tier |
 |-----|-----------|-----------|
 | `GROQ_API_KEY` | [console.groq.com](https://console.groq.com) | 6K TPM per model |
-| `FIRECRAWL_API_KEY` | [firecrawl.dev](https://www.firecrawl.dev/) | 500 credits/month |
+| `FIRECRAWL_API_KEY` | [firecrawl.dev](https://www.firecrawl.dev/) | 500 credits/month (see below for 20K) |
+
+**Firecrawl student credits:** Sign up with your `@berkeley.edu` email, then go to **Billing** and enter promo code **`STUDENTEDU`** for 20K free credits.
 
 ### 3. Configure environment
 
