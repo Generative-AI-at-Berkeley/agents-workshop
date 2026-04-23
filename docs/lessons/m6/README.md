@@ -1,6 +1,5 @@
 # Module 6 — Multi-Agent Search Orchestra
 
-**Time:** ~5 minutes | **Key idea:** "Pipelines eliminate hallucination by design. Distribute LLM load across models to stay under rate limits."
 
 ## The Graph
 

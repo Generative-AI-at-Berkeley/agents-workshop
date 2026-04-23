@@ -1,6 +1,5 @@
 # Module 2 — Directed Graph + Conditional Edges
 
-**Time:** ~8 minutes | **Key idea:** "The graph IS the product spec. 90% of production agents are directed graphs."
 
 ## The Graph
 

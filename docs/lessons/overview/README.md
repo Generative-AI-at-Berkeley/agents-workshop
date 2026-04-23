@@ -1,6 +1,5 @@
 # Workshop Overview — Building Production AI Agents
 
-**Time:** ~40 minutes | **Audience:** Mixed-skill (some ML, some SWE, some new)
 
 ## What We're Building
 

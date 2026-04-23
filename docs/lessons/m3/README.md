@@ -1,6 +1,5 @@
 # Module 3 — Tools + RBAC
 
-**Time:** ~7 minutes | **Key idea:** "Without RBAC, every agent can do everything. One YAML change revokes access."
 
 ## The Graph
 

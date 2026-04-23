@@ -1,6 +1,5 @@
 # Module 4 — Subagents
 
-**Time:** ~8 minutes | **Key idea:** "The manager doesn't work — it delegates. Traces show parent-child hierarchy."
 
 ## The Graph
 

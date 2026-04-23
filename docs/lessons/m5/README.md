@@ -1,6 +1,5 @@
 # Module 5 — Parallel Fan-Out + Merge
 
-**Time:** ~7 minutes | **Key idea:** "Fan-out is easy. Merge is the product. Same work, fraction of the time."
 
 ## The Graph
 

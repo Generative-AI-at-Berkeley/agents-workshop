@@ -1,6 +1,5 @@
 # Module 1 — Single Agent + Observability
 
-**Time:** ~5 minutes | **Key idea:** "One LLM call is an agent. Observability is what makes it debuggable."
 
 ## The Graph
 
