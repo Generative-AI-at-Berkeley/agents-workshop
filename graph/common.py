@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import asyncio
 import json
 import re
 from pathlib import Path
@@ -51,20 +52,21 @@ def _tools_to_openai_spec(tools: list[Any]) -> list[dict]:
 
 async def _execute_tool_calls(tool_calls: list[dict], tools: list[Any]) -> list[ToolMessage]:
 	tool_map = {t.name: t for t in tools}
-	results = []
-	for tc in tool_calls:
+
+	async def _run_one(tc: dict) -> ToolMessage:
 		name = tc["name"]
 		args = tc.get("args", {})
 		tool = tool_map.get(name)
 		if not tool:
-			results.append(ToolMessage(content=f"Unknown tool: {name}", tool_call_id=tc["id"]))
-			continue
+			return ToolMessage(content=f"Unknown tool: {name}", tool_call_id=tc["id"])
 		with span_context(name=f"tool.{name}", input=args) as span:
 			result = await tool.run(**args)
 			span.update(output=result.model_dump())
 		content = json.dumps(result.data) if result.success else f"Error: {result.error}"
-		results.append(ToolMessage(content=content, tool_call_id=tc["id"]))
-	return results
+		return ToolMessage(content=content, tool_call_id=tc["id"])
+
+	results = await asyncio.gather(*[_run_one(tc) for tc in tool_calls])
+	return list(results)
 
 
 def get_request(state: dict) -> NightOutRequest:
@@ -146,4 +148,4 @@ async def call_agent_with_tools(agent_name: str, user_msg: str) -> str:
 def call_agent_sync_with_tools(agent_name: str, user_msg: str) -> str:
 	import asyncio
 
-	return asyncio.get_event_loop().run_until_complete(call_agent_with_tools(agent_name, user_msg))
+	return asyncio.run(call_agent_with_tools(agent_name, user_msg))
